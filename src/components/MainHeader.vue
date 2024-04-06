@@ -19,7 +19,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scope>
 header {
     display: flex;
     justify-content: space-between;

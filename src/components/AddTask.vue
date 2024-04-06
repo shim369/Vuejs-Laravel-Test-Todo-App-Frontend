@@ -53,7 +53,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scope>
 .task-form {
     margin-top: 2rem;
     text-align: center;
@@ -62,88 +62,108 @@ export default {
     border-radius: 2px;
     box-shadow: #302f2f 0px 8px 0px 0px;
 
+    @media (width <=800px) {
+        padding: 3rem 4%;
+    }
+
+    .add-box {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        color: #fff;
+
+        input[type="text"] {
+            width: 100%;
+            all: unset;
+            padding: 1rem 1.2rem;
+            text-align: left;
+            color: #fff;
+            border-bottom: 1px solid var(--light-gray);
+            background: var(--dark-black);
+
+            &:focus {
+                background: var(--light-black);
+                border-bottom: 1px solid var(--dark-black);
+            }
+
+            &::placeholder {
+                color: #606060;
+            }
+        }
+    }
+
+    button.form-submit {
+        text-align: center;
+        all: unset;
+        background: var(--yellow);
+        padding: 1rem 2rem;
+        cursor: pointer;
+        border-radius: 2px;
+        color: var(--dark-gray);
+        width: 20%;
+        min-width: 80px;
+        margin: 3rem auto 0;
+        transition: all .4s ease-in-out;
+
+        &:hover {
+            opacity: .8;
+        }
+    }
+
+    .edit-title {
+        color: var(--yellow);
+        margin-bottom: .3rem;
+        
+        span {
+            display: block;
+        }
+    }
+
+    .edit-id-box {
+        text-align: left;
+        margin-bottom: 2rem;
+        color: #fff;
+    }
+
+    .edit-input-box {
+        text-align: left;
+        width: 100%;
+        margin-bottom: 2rem;
+
+        label {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            all: unset;
+            padding: 1rem 1.2rem;
+            text-align: left;
+            color: #fff;
+            border-bottom: 1px solid var(--light-gray);
+            background: var(--dark-black);
+
+            &:focus {
+                background: var(--light-black);
+                border-bottom: 1px solid var(--dark-black);
+            }
+
+            &::placeholder {
+                color: #606060;
+            }
+        }
+    }
+
+    .edit-checkbox-box {
+        text-align: left;
+    }
 }
 
-.add-box {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    color: #fff;
-}
-
-.add-box input[type="text"] {
-    width: 100%;
-    all: unset;
-    padding: 1rem 1.2rem;
-    text-align: left;
-    color: #fff;
-    border-bottom: 1px solid var(--light-gray);
-    background: var(--dark-black);
-}
-
-.add-box input[type="text"]:focus {
-    background: var(--light-black);
-    border-bottom: 1px solid var(--dark-black);
-}
-
-.add-box input[type="text"]:placeholder {
-    color: #606060;
-}
-
-button.form-submit {
-    text-align: center;
-    all: unset;
-    background: var(--yellow);
-    padding: 1rem 2rem;
-    cursor: pointer;
-    border-radius: 2px;
-    color: var(--dark-gray);
-    width: 20%;
-    min-width: 80px;
-    margin: 3rem auto 0;
-    transition: all .4s ease-in-out;
-}
-
-button.form-submit:hover {
-    opacity: .8;
-}
-
-.edit-title {
+.form-alert {
+    font-size: 1rem;
     color: var(--yellow);
-    margin-bottom: .3rem;
-
-}
-
-.edit-title span {
-    display: block;
-}
-
-.edit-id-box {
-    text-align: left;
-    margin-bottom: 2rem;
-    color: #fff;
-}
-
-.edit-input-box {
-    text-align: left;
-    width: 100%;
-    margin-bottom: 2rem;
-
-}
-
-.edit-input-box label {
-    display: flex;
-    flex-direction: column;
-}
-
-.edit-input-box input[type="text"] {
-    width: 100%;
-    all: unset;
-    padding: 1rem 1.2rem;
-    text-align: left;
-    color: #fff;
-    border-bottom: 1px solid var(--light-gray);
-    background: var(--dark-black);
+    margin-top: 1rem;
 }
 
 .form-alert ul li {

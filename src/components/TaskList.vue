@@ -55,7 +55,17 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scope>
+.tasks {
+    margin-top: 3rem;
+
+    .empty-message {
+        color: var(--yellow);
+        text-align: center;
+        font-size: 1rem;
+    }
+
+}
 .single-task {
     width: 100%;
     display: flex;
@@ -65,36 +75,49 @@ export default {
     padding: 2rem;
     margin-top: 2rem;
     box-shadow: #302f2f 0px 8px 0px 0px;
+
+    h2 {
+        font-size: 1rem;
+        font-weight: normal;
+        color: #fff;
+    }
+    .fa-check-circle {
+        font-size: 1rem;
+        visibility: hidden;
+        color: var(--yellow);
+    }
 }
 
-.single-task h2 {
-    font-size: 1rem;
-    font-weight: normal;
-    color: #fff;
+.task-completed {
+    .fa-check-circle {
+        visibility: visible;
+    }
+    h2 {
+        color: #b5b5b5;
+    }
 }
 
-.single-task .fa-check-circle {
-    font-size: 1rem;
-    visibility: hidden;
-    color: var(--yellow);
-}
+.task-links {
+    a {
+        color: #fff;
+        text-decoration: none;
+        transition: all .4s ease-in-out;
 
-.task-links a {
-    color: #fff;
-    text-decoration: none;
-    transition: all .4s ease-in-out;
-}
+        &:hover {
+            opacity: .8;
+        }
+    }
 
-.task-links button {
-    all: unset;
-    margin-left: .5rem;
-    cursor: pointer;
-    color: #fff;
-    transition: all .4s ease-in-out;
+    button {
+        all: unset;
+        margin-left: .5rem;
+        cursor: pointer;
+        color: #fff;
+        transition: all .4s ease-in-out;
 
-}
-
-.task-links button:hover {
-    opacity: .8;
+        &:hover {
+            opacity: .8;
+        }
+    }
 }
 </style>
