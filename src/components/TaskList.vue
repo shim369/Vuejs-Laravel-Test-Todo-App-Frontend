@@ -3,8 +3,8 @@
         <h2>Task List</h2>
 
         <section class="tasks-container">
-            <div class="tasks" v-for="task in tasks" :key="task.id">
-                <div class="single-task">
+            <div class="tasks">
+                <div class="single-task" v-for="task in tasks" :key="task.id">
                     <h2>
                         <span>
                             <font-awesome-icon icon="fas fa-check" />
