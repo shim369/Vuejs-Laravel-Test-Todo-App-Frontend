@@ -1,6 +1,6 @@
 <template>
   <MainHeader title="Vue Laravel Todo App" />
-      <router-view />
+  <router-view />
 </template>
 
 <script>
@@ -19,6 +19,16 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+:root {
+  --yellow: #ffe432;
+  --light-black: #343434;
+  --black: #292929;
+  --dark-black: #232323;
+  --deep-black: #1f1f1f;
+  --light-gray: #9e9e9e;
+  --dark-gray: #5d5d5d;
 }
 
 #app {
