@@ -39,11 +39,14 @@ export default {
                 await axios.post(url, formData).then((response) => {
                     console.log(response);
                     if (response.status == 200) {
+                        this.task.name = '';
                         alert(response.data.message);
+                    } else {
+                        console.log('error');
                     }
-                }).catch((error) => {
-                        console.error('Failed to save task', error);
-                    });
+                }).catch(error => {
+                    this.errors.push(error.response);
+                });
             }
         }
     }
