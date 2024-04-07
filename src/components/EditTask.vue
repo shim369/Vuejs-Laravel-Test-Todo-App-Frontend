@@ -1,7 +1,7 @@
 <template>
     <main>
         <h2>Edit Task</h2>
-        <form class="task-form">
+        <form class="task-form" @submit.prevent="updateTask" novalidate>
             <div class="add-box">
                 <input type="text" name="name" class="task-input" placeholder="Add Task" autocomplete="off"
                     v-model="task.name">
@@ -36,6 +36,27 @@ export default {
                 console.log(response);
                 this.task = response.data;
             });
+        },
+        async updateTask() {
+            this.errors = [];
+            if (!this.task.name) {
+                this.errors.push("Task name is required!")
+            }
+            if (!this.errors.length) {
+                let formData = new FormData();
+                formData.append('name', this.task.name);
+                let url = `http://127.0.0.1:8000/api/update_task/${this.$route.params.id}`;
+                await axios.post(url, formData).then((response) => {
+                    console.log(response);
+                    if (response.status == 200) {
+                        alert(response.data.message);
+                    } else {
+                        console.log('error');
+                    }
+                }).catch(error => {
+                    this.errors.push(error.response);
+                });
+            }
         }
     },
     mounted: function () {
