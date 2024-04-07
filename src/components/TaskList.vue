@@ -5,9 +5,14 @@
         <section class="tasks-container">
             <div class="tasks">
                 <div class="single-task" v-for="task in tasks" :key="task.id">
-                    <h2>
-                        {{ task.name }}
-                    </h2>
+                    <div class="task-name">
+                        <span class="check">
+                            <font-awesome-icon v-if="task.completed===1" icon="fas fa-check" />
+                        </span>
+                        <h2>
+                            {{ task.name }}
+                        </h2>
+                    </div>
                     <div class="task-links">
                         <button class="edit-link" @click="() => this.$router.push({ path: `/task/edit/${task.id}`})">
                             <font-awesome-icon icon="fas fa-edit" />
@@ -85,20 +90,32 @@ export default {
     margin-top: 2rem;
     box-shadow: #302f2f 0px 8px 0px 0px;
 
+    .task-name {
+        display: flex;
+    }
+
+    .check {
+        width: 20px;
+        svg {
+            font-size: 1rem;
+
+            path {
+                fill: var(--yellow);
+            }
+        }
+    }
+
     h2 {
         font-size: 1rem;
         font-weight: normal;
         color: #fff;
     }
-}
-
-.task-completed {
-    .fa-check-circle {
-        visibility: visible;
-    }
-
-    h2 {
-        color: #b5b5b5;
+    
+    &:has(.check svg) {
+        h2 {
+            color: #6a6a6a;
+            text-decoration: line-through;
+        }
     }
 }
 

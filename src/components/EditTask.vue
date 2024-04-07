@@ -2,16 +2,29 @@
     <main>
         <h2>Edit Task</h2>
         <form class="task-form" @submit.prevent="updateTask" novalidate>
-            <div class="add-box">
-                <input type="text" name="name" class="task-input" placeholder="Add Task" autocomplete="off"
-                    v-model="task.name">
-                <div class="form-alert" v-if="errors.length">
-                    <ul>
-                        <li v-for="(error, index) in errors" :key=index>{{ error }}</li>
-                    </ul>
-                </div>
-                <button type="submit" class="form-submit">submit</button>
+            <div class="edit-id-box">
+                <div class="edit-title">Task ID</div>
+                <p class="task-edit-id">{{ task.id }}</p>
             </div>
+            <div class="edit-input-box">
+                <label class="edit-title">
+                    <span>Name</span>
+                    <input type="text" name="name" class="task-input" placeholder="Add Task" autocomplete="off"
+                        v-model="task.name">
+                    <div class="form-alert" v-if="errors.length">
+                        <ul>
+                            <li v-for="(error, index) in errors" :key=index>{{ error }}</li>
+                        </ul>
+                    </div>
+                </label>
+            </div>
+            <div class="edit-checkbox-box">
+                <label class="edit-title">
+                    <span>Completed/Unfinished</span>
+                    <input type="checkbox" name="completed" class="task-edit-completed" v-model="task.completed">
+                </label>
+            </div>
+            <button type="submit" class="form-submit">Edit</button>
         </form>
     </main>
 </template>
@@ -35,6 +48,7 @@ export default {
             await axios.get(url).then(response => {
                 console.log(response);
                 this.task = response.data;
+                this.task.completed = response.data.completed === 1;
             });
         },
         async updateTask() {
@@ -45,6 +59,7 @@ export default {
             if (!this.errors.length) {
                 let formData = new FormData();
                 formData.append('name', this.task.name);
+                formData.append('completed', this.task.completed ? 1 : 0); 
                 let url = `http://127.0.0.1:8000/api/update_task/${this.$route.params.id}`;
                 await axios.post(url, formData).then((response) => {
                     console.log(response);
@@ -183,4 +198,45 @@ export default {
     margin-top: 1rem;
     color: var(--yellow);
 }
+
+.checkbox-label {
+    display: inline-block;
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+    color: #fff;
+
+    span.checkbox-custom {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        background-color: #fff;
+        border-radius: 2px;
+        transition: background-color 0.3s;
+
+        &::after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 6px;
+            top: 2px;
+            width: 4px;
+            height: 9px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+    }
+
+    input[type="checkbox"]:checked + .checkbox-custom {
+        background-color: var(--yellow);
+
+        &::after {
+            display: block;
+        }
+    }
+}
+
 </style>
