@@ -12,9 +12,9 @@
                         {{ task.name }}
                     </h2>
                     <div class="task-links">
-                        <a href="#" class="edit-link">
+                        <button class="edit-link" @click="() => this.$router.push({ path: `/task/edit/${task.id}`})">
                             <font-awesome-icon icon="fas fa-edit" />
-                        </a>
+                        </button>
                         <button type="submit" class="delete-btn" @click.prevent="deleteTask(task.id)">
                             <font-awesome-icon icon="fas fa-trash" />
                         </button>
@@ -51,7 +51,7 @@ export default {
         async deleteTask(id) {
             let url = `http://127.0.0.1:8000/api/delete_task/${id}`;
             await axios.delete(url).then(response => {
-                if(response.data.code == 200) {
+                if (response.data.code == 200) {
                     alert(response.data.message);
                     this.getTasks();
                 }
