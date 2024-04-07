@@ -15,7 +15,7 @@
                         <a href="#" class="edit-link">
                             <font-awesome-icon icon="fas fa-edit" />
                         </a>
-                        <button type="submit" class="delete-btn" data-id="">
+                        <button type="submit" class="delete-btn" @click.prevent="deleteTask(task.id)">
                             <font-awesome-icon icon="fas fa-trash" />
                         </button>
                     </div>
@@ -39,15 +39,26 @@ export default {
         this.getTasks();
     },
     methods: {
-       async getTasks() {
-        let url = 'http://127.0.0.1:8000/api/tasks';
-        await axios.get(url).then(response => {
-            this.tasks = response.data.tasks;
-            console.log(this.tasks);
-        }).catch(error => {
-            console.log(error);
-        });
-       } 
+        async getTasks() {
+            let url = 'http://127.0.0.1:8000/api/tasks';
+            await axios.get(url).then(response => {
+                this.tasks = response.data.tasks;
+                console.log(this.tasks);
+            }).catch(error => {
+                console.log(error);
+            });
+        },
+        async deleteTask(id) {
+            let url = `http://127.0.0.1:8000/api/delete_task/${id}`;
+            await axios.delete(url).then(response => {
+                if(response.data.code == 200) {
+                    alert(response.data.message);
+                    this.getTasks();
+                }
+            }).catch(error => {
+                console.log(error);
+            });
+        }
     },
     mounted() {
         console.log('Task List Component mounted!');
@@ -66,6 +77,7 @@ export default {
     }
 
 }
+
 .single-task {
     width: 100%;
     display: flex;
@@ -81,6 +93,7 @@ export default {
         font-weight: normal;
         color: #fff;
     }
+
     .fa-check-circle {
         font-size: 1rem;
         visibility: hidden;
@@ -92,6 +105,7 @@ export default {
     .fa-check-circle {
         visibility: visible;
     }
+
     h2 {
         color: #b5b5b5;
     }
