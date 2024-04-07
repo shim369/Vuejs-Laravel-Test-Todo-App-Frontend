@@ -6,9 +6,6 @@
             <div class="tasks">
                 <div class="single-task" v-for="task in tasks" :key="task.id">
                     <h2>
-                        <span>
-                            <font-awesome-icon icon="fas fa-check" />
-                        </span>
                         {{ task.name }}
                     </h2>
                     <div class="task-links">
@@ -92,12 +89,6 @@ export default {
         font-size: 1rem;
         font-weight: normal;
         color: #fff;
-    }
-
-    .fa-check-circle {
-        font-size: 1rem;
-        visibility: hidden;
-        color: var(--yellow);
     }
 }
 
