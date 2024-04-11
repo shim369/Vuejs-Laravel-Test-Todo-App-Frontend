@@ -29,14 +29,21 @@
     </main>
 </template>
 
-<script>
+<script lang="ts">
 import axios from 'axios';
-export default {
+import { Task } from '../../types/task';
+import { defineComponent } from 'vue';
+
+export default defineComponent({
     name: 'EditTask',
     data() {
         return {
-            task: {},
-            errors: [],
+            task: {
+                id: 0,
+                name: '',
+                completed: false,
+            } as Task,
+            errors: [] as string[],
         }
     },
     created() {
@@ -45,10 +52,10 @@ export default {
     methods: {
         async getTaskById() {
             let url = `http://127.0.0.1:8000/api/get_task/${this.$route.params.id}`;
-            await axios.get(url).then(response => {
+            await axios.get<Task>(url).then(response => {
                 console.log(response);
                 this.task = response.data;
-                this.task.completed = response.data.completed === 1;
+                this.task.completed = Number(response.data.completed) === 1;
             });
         },
         async updateTask() {
@@ -59,11 +66,11 @@ export default {
             if (!this.errors.length) {
                 let formData = new FormData();
                 formData.append('name', this.task.name);
-                formData.append('completed', this.task.completed ? 1 : 0); 
+                formData.append('completed', this.task.completed ? '1' : '0'); 
                 let url = `http://127.0.0.1:8000/api/update_task/${this.$route.params.id}`;
                 await axios.post(url, formData).then((response) => {
                     console.log(response);
-                    if (response.status == 200) {
+                    if (response.data.code == 200) {
                         alert(response.data.message);
                     } else {
                         console.log('error');
@@ -77,7 +84,7 @@ export default {
     mounted: function () {
         console.log('Edit Component Form Component Loaded...');
     }
-}
+})
 </script>
 
 <style lang="scss" scope>

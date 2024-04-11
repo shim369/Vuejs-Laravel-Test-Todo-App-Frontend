@@ -3,7 +3,7 @@
   <router-view />
 </template>
 
-<script>
+<script lang="ts">
 import MainHeader from './components/MainHeader.vue'
 
 export default {
@@ -14,7 +14,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 * {
   margin: 0;
   padding: 0;

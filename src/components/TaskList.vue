@@ -7,14 +7,14 @@
                 <div class="single-task" v-for="task in tasks" :key="task.id">
                     <div class="task-name">
                         <span class="check">
-                            <font-awesome-icon v-if="task.completed===1" icon="fas fa-check" />
+                            <font-awesome-icon v-if="Number(task.completed)===1" icon="fas fa-check" />
                         </span>
                         <h2>
                             {{ task.name }}
                         </h2>
                     </div>
                     <div class="task-links">
-                        <button class="edit-link" @click="() => this.$router.push({ path: `/task/edit/${task.id}`})">
+                        <button class="edit-link" @click="() => $router.push({ path: `/task/edit/${task.id}`})">
                             <font-awesome-icon icon="fas fa-edit" />
                         </button>
                         <button type="submit" class="delete-btn" @click.prevent="deleteTask(task.id)">
@@ -28,13 +28,16 @@
 </template>
 
 
-<script>
+<script lang="ts">
 import axios from 'axios';
-export default {
+import { Task } from '../../types/task';
+import { defineComponent } from 'vue';
+
+export default defineComponent({
     name: 'TaskList',
     data() {
         return {
-            tasks: Array,
+            tasks: [] as Task[],
         }
     },
     created() {
@@ -43,14 +46,14 @@ export default {
     methods: {
         async getTasks() {
             let url = 'http://127.0.0.1:8000/api/tasks';
-            await axios.get(url).then(response => {
+            await axios.get<{tasks: Task[]}>(url).then(response => {
                 this.tasks = response.data.tasks;
                 console.log(this.tasks);
             }).catch(error => {
                 console.log(error);
             });
         },
-        async deleteTask(id) {
+        async deleteTask(id: number) {
             let url = `http://127.0.0.1:8000/api/delete_task/${id}`;
             await axios.delete(url).then(response => {
                 if (response.data.code == 200) {
@@ -65,7 +68,7 @@ export default {
     mounted() {
         console.log('Task List Component mounted!');
     }
-}
+})
 </script>
 
 <style lang="scss" scope>

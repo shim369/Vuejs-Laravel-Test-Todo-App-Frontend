@@ -16,14 +16,17 @@
     </main>
 </template>
 
-<script>
+<script lang="ts">
 import axios from 'axios';
-export default {
+import { Task } from '../../types/task';
+import { defineComponent } from 'vue';
+
+export default defineComponent({
     name: 'AddTask',
     data() {
         return {
-            task: {},
-            errors: []
+            task: {} as Task,
+            errors: [] as string[]
         }
     },
     methods: {
@@ -50,7 +53,7 @@ export default {
             }
         }
     }
-}
+})
 </script>
 
 <style lang="scss" scope>
