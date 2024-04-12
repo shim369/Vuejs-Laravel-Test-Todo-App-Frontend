@@ -48,6 +48,8 @@ a:hover {
 }
 
 main {
-  padding: 1rem;
+  padding: 3rem;
+  max-width: 800px;
+  margin: 0 auto;
 }
 </style>
